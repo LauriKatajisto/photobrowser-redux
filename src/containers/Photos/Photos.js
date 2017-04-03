@@ -1,82 +1,51 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
-import axios from 'axios';
-
-import Nav from '../../components/Nav/Nav';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchPhotos } from '../../actions/index';
 
 class Photos extends Component{
   constructor(props){
     super(props);
-    this.state = {
-      page:1,
-      photos:[]
-    };
-    this.setPage = this.setPage.bind(this);
-    this.setPhotosState = this.setPhotosState.bind(this); 
   }
 
-  componentDidMount(){
-      if(this.props.params.page){
-        this.setState({page:parseInt(this.props.params.page,10)});
-        this.setPhotosState(this.props.params.page);
-      }else{
-        this.setPhotosState(1);
-      }
-      
+  componentWillMount() {
+   this.props.fetchPhotos(this.props.params.page);
   }
-  
+
   componentDidUpdate(prevProps){
-
-    let oldpage = prevProps.params.page;
-    let newpage = this.props.params.page
+    const oldpage = prevProps.params.page;
+    const newpage = this.props.params.page
  
     if(oldpage!==newpage){
-      this.setState({page:parseInt(newpage,10)});
-      this.setPhotosState(newpage);
+      this.props.fetchPhotos(this.props.params.page);
     }
   }
 
-  
 
-  setPage(e){
-    //console.log('value',e.target.value);
-    this.setState({page:parseInt(e.target.value,10)});
-    this.setPhotosState(parseInt(e.target.value,10));
-  }
+  renderPhotos() {
+    return this.props.photos.map((photo) => {
+      return (
+         <Col xs={6} md={2} key={photo.id}>
 
-  setPhotosState(value){
-      var _this = this;
-      axios.get('//jsonplaceholder.typicode.com/photos?_limit=12&_page='+value)
-        .then(function (response) {
-          //console.log(response);
+        <div className="thumbnail">
         
-          _this.setState( {photos:response.data} );
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          <img src={photo.thumbnailUrl} role="presentation" />
+          <Link className="btn btn-default btn-xs center-block" to={'/photo/'+photo.id}>Open photo</Link>
+        </div>
+      </Col>
+      );
+    });
   }
 
   render(){
 
-    let nextPage = this.state.page + 1;
-    let previousPage = this.state.page - 1;
-    if(previousPage===0){
+    const nextPage = parseInt(this.props.params.page,10) + 1;
+    let previousPage = parseInt(this.props.params.page,10) - 1;
+    if(previousPage===0) {
       previousPage = 1;
     }
-
-
-    const kuvat = this.state.photos.map( kuva => 
-       <Col xs={6} md={2} key={kuva.id}>
-
-        <div className="thumbnail">
-        
-          <img src={kuva.thumbnailUrl} role="presentation" />
-          <Link className="btn btn-default btn-xs center-block" to={'/photo/'+kuva.id}>Open photo</Link>
-        </div>
-      </Col>
-    );
 
       return(
         <Grid>
@@ -84,14 +53,14 @@ class Photos extends Component{
             <Col xs={12}>
               <ol className="breadcrumb">
                 <li>Page</li>
-                <li>{this.state.page}</li>   
+                <li>{this.props.params.page}</li>   
               </ol>
               
              
             </Col>
           </Row>
           <Row>
-            { kuvat }
+            { this.renderPhotos() }
           </Row>
           <Row>
               <Col xs={12}>
@@ -102,7 +71,7 @@ class Photos extends Component{
                           <span aria-hidden="true">&laquo;</span>
                         </Link>
                       </li>
-                      <li className="active"><a href="#">{this.state.page}</a></li>
+                      <li className="active"><a href="#">{this.props.params.page}</a></li>
                       <li>
                         <Link to={'/photos/'+nextPage}>
                           <span aria-hidden="true">&raquo;</span>
@@ -118,4 +87,11 @@ class Photos extends Component{
   }
 }
 
-export default Photos;
+
+  function mapStateToProps(state) {
+    return {
+        photos: state.photos.photos
+    };
+}
+
+export default connect(mapStateToProps, { fetchPhotos })(Photos);

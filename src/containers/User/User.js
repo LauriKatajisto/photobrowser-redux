@@ -39,12 +39,6 @@ componentDidMount(){
         <Grid>
           <Row>
             <Col xs={12}>
-              <Nav />
-            </Col>
-          </Row>
-         
-          <Row>
-            <Col xs={12}>
               <address>
                 <strong>{this.state.user.name}</strong><br />
                 {this.state.user.email}<br />

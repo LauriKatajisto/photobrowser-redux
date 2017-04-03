@@ -50,11 +50,6 @@ componentDidMount(){
 
       return(
         <Grid>
-          <Row>
-            <Col xs={12}>
-              <Nav />
-            </Col>
-          </Row>
          
           <Row>
             <Col xs={12}>
