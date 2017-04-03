@@ -1,7 +1,12 @@
 img{
     margin-bottom: 10px;
+    height: 150px;
 }
 
 .paginatio{
     margin-left: 20px;
+}
+
+.thumbnail{
+    height: 194px;
 }
