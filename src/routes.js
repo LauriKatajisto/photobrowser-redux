@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 
-import Photos from './components/Photos/Photos';
-import Photo from './components/Photo/Photo';
+import Photos from './containers/Photos/Photos';
+import Photo from './containers/Photo/Photo';
 import Browser from './components/Browser/Browser';
-import User from './components/User/User';
+import User from './containers/User/User';
 
 
 export default (

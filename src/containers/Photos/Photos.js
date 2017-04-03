@@ -82,7 +82,6 @@ class Photos extends Component{
         <Grid>
           <Row>
             <Col xs={12}>
-              <Nav />
               <ol className="breadcrumb">
                 <li>Page</li>
                 <li>{this.state.page}</li>   
