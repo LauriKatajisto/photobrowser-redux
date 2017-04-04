@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { browserHistory } from 'react-router'
 
-import Nav from '../../components/Nav/Nav';
-
 import axios from 'axios';
 
 

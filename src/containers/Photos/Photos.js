@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+//import { bindActionCreators } from 'redux';
 import { fetchPhotos } from '../../actions/index';
 
 class Photos extends Component{
-  constructor(props){
-    super(props);
-  }
-
   componentWillMount() {
    this.props.fetchPhotos(this.props.params.page);
   }
@@ -31,7 +27,7 @@ class Photos extends Component{
 
         <div className="thumbnail">
         
-          <img src={photo.thumbnailUrl} role="presentation" />
+          <img src={photo.thumbnailUrl} alt={photo.id} role="presentation" />
           <Link className="btn btn-default btn-xs center-block" to={'/photo/'+photo.id}>Open photo</Link>
         </div>
       </Col>
@@ -88,10 +84,10 @@ class Photos extends Component{
 }
 
 
-  function mapStateToProps(state) {
-    return {
-        photos: state.photos.photos
-    };
+function mapStateToProps(state) {
+  return {
+    photos: state.photos.photos
+  };
 }
 
 export default connect(mapStateToProps, { fetchPhotos })(Photos);
