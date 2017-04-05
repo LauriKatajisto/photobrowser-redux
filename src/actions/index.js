@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_PHOTOS = 'FETCH_PHOTOS';
 export const FETCH_PHOTO = 'FETCH_PHOTO';
 export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USERS = 'FETCH_USERS';
 
 const PHOTOS_URL = 'http://jsonplaceholder.typicode.com/photos?_limit=12&_page=';
 const PHOTO_URL = 'http://jsonplaceholder.typicode.com/photos/';
@@ -24,6 +25,15 @@ export function fetchPhoto(id) {
 
     return {
         type: FETCH_PHOTO,
+        payload: request
+    };
+}
+
+export function fetchUsers() {
+    const request = axios.get(`${USER_URL}`);
+
+    return {
+        type: FETCH_USERS,
         payload: request
     };
 }
