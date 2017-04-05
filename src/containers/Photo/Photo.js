@@ -12,8 +12,6 @@ class Photo extends Component{
 
   componentWillMount(){
     this.props.fetchPhoto(this.props.params.photoId);
-
-    console.log(this.props);
   }
   
   render(){

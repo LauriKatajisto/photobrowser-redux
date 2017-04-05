@@ -1,56 +1,61 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { browserHistory } from 'react-router'
-
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchUser } from '../../actions/index';
 
 
 class User extends Component{
-  constructor(props){
-    super(props);   
-
-    this.state = { user:[],address:[],albums:[] };
-  }
-
-componentDidMount(){
-    let _this = this;
-    let usersurl =  '//jsonplaceholder.typicode.com/users/'+_this.props.params.userId+'?_embed=albums';
-    
-    axios.get(usersurl)
-      .then(function (response) {
-        console.log(response.data);
-       
-        _this.setState( {user:response.data} );
-        _this.setState( {address:response.data.address} );
-        _this.setState( {albums:response.data.albums} );
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  
+  componentWillMount(){
+    this.props.fetchUser(this.props.params.userId);
   }
   
 
   render(){
-      
-      return(
+      if(!this.props.user){
+        return(
         <Grid>
-          <Row>
-            <Col xs={12}>
-              <address>
-                <strong>{this.state.user.name}</strong><br />
-                {this.state.user.email}<br />
-                {this.state.address.street}, {this.state.address.suite},<br />
-                {this.state.address.city}, {this.state.address.zipcode}<br />
-                <abbr title="Phone">P:</abbr> {this.state.user.phone}
-              </address>
-              <a className="btn btn-default" onClick={browserHistory.goBack}>Close info</a>
-            </Col>
-          </Row>
-          
-        </Grid>
-      );
+            <Row>
+              <Col xs={12}>
+                Loading... 
+              </Col>
+            </Row>
+            
+          </Grid>
+        );
+      }else{
+        console.log(this.props.user);
+        return(
+          <Grid>
+            <Row>
+              <Col xs={12}>
+                <address>
+
+                  <strong>{this.props.user.name}</strong><br />
+                  {this.props.user.email}<br />
+                  {this.props.user.address.street}, {this.props.user.address.suite},<br />
+                  {this.props.user.address.city}, {this.props.user.address.zipcode}<br />
+                  <abbr title="Phone">P:</abbr> {this.props.user.phone}
+                </address>
+                <a className="btn btn-default" onClick={browserHistory.goBack}>Close info</a>
+              </Col>
+            </Row>
+            
+          </Grid>
+        );
+      }
+
+
+     
   }
 }
 
-export default User;
+
+function mapStateToProps(state){
+  return {
+    user: state.users.user
+  };
+}
+
+export default connect(mapStateToProps, { fetchUser } )(User);
