@@ -5,9 +5,9 @@ export const FETCH_PHOTO = 'FETCH_PHOTO';
 export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USERS = 'FETCH_USERS';
 
-const PHOTOS_URL = 'http://jsonplaceholder.typicode.com/photos?_limit=12&_page=';
-const PHOTO_URL = 'http://jsonplaceholder.typicode.com/photos/';
-const USER_URL = 'http://jsonplaceholder.typicode.com/users/';
+const PHOTOS_URL = '//jsonplaceholder.typicode.com/photos?_limit=12&_page=';
+const PHOTO_URL = '//jsonplaceholder.typicode.com/photos/';
+const USER_URL = '//jsonplaceholder.typicode.com/users/';
 
 
 export function fetchPhotos(page) {
