@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-export const FETCH_PHOTOS = 'FETCH_PHOTOS';
-export const FETCH_PHOTO = 'FETCH_PHOTO';
-export const FETCH_USER = 'FETCH_USER';
-export const FETCH_USERS = 'FETCH_USERS';
+import { FETCH_PHOTOS, FETCH_PHOTO, FETCH_USER, FETCH_USERS } from './types';
 
 const PHOTOS_URL = '//jsonplaceholder.typicode.com/photos?_limit=12&_page=';
 const PHOTO_URL = '//jsonplaceholder.typicode.com/photos/';

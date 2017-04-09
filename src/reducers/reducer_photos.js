@@ -1,4 +1,4 @@
-import { FETCH_PHOTOS, FETCH_PHOTO } from '../actions/index';
+import { FETCH_PHOTOS, FETCH_PHOTO } from '../actions/types';
 
 const INITIAL_STATE = { photos: [], photo: null };
 
