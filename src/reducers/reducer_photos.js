@@ -9,7 +9,7 @@ export default function(state = INITIAL_STATE, action) {
         return { ...state, photos: action.payload.data };
     case FETCH_PHOTO:
         return { ...state, photo: action.payload.data };
-    default: 
+    default:
         return state;
     }
 }
